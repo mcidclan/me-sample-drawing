@@ -49,7 +49,7 @@ int setupDmacplusLcdc() {
 int main(int argc, char **argv) {
   scePowerSetClockFrequency(333, 333, 166);
 
-  if (pspSdkLoadStartModule("ms0:/PSP/GAME/me/ms_klib.prx", PSP_MEMORY_PARTITION_KERNEL) < 0){
+  if (pspSdkLoadStartModule("ms0:/PSP/GAME/me/mds_klib.prx", PSP_MEMORY_PARTITION_KERNEL) < 0){
     sceKernelExitGame();
     return 0;
   }
