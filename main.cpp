@@ -33,15 +33,15 @@ int meLoop() {
     color = randInRange(0xFF) << 16 | randInRange(0xFF) << 8 | randInRange(0xFF);
     counter = 0;
   }
-  drawLine(16, 16, color);
+  drawLine(16, 16, color);  
   return !stop;
 }
 
 int setupDmacplusLcdc() {
-  // reg(0xBC800104) = 3; // pixel format
-  *((u32*)0xBC800108) = 512; // buffer size
-  *((u32*)0xBC80010C) = 512; // stride
-  *((u32*)0xBC800100) = BASE_SHARED_MEM;
+  reg(0xBC800104) = 0; // pixel format 8888
+  reg(0xBC800108) = 512; // buffer size
+  reg(0xBC80010C) = 512; // stride
+  reg(0xBC800100) = BASE_SHARED_MEM;
   sceKernelDcacheWritebackInvalidateAll();
   return 0;
 }
@@ -67,14 +67,12 @@ int main(int argc, char **argv) {
   do {
     drawLine(48, 16, color & 0xFFAAA555);
     sceKernelDcacheWritebackInvalidateAll();
-    asm("sync");
     sceKernelDelayThread(500000); // make sure to visualize both CPUs working differently
     sceCtrlPeekBufferPositive(&ctl, 1);
-  } while(!(ctl.Buttons & PSP_CTRL_HOME)); // keep pressing to exit due to the delay
+  } while(!(ctl.Buttons & PSP_CTRL_HOME)); // to exit, hold down HOME longer due to the delay
   
   stop = true;
   sceKernelDcacheWritebackInvalidateAll();
-  asm("sync");
   
   pspDebugScreenInit();
   pspDebugScreenClear();
