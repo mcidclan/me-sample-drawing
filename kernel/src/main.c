@@ -31,10 +31,11 @@ void me_init(MeCom* const meCom){
   volatile MeCom* const _meCom = (volatile MeCom* const)(ME_SECTION_END_ADDR);
   _memcpy((void*)_meCom, meCom, sizeof(MeCom));
   _memcpy((void *)ME_HANDLER_BASE, &__start__me_section, ME_SECTION_SIZE);
+  sceKernelDcacheWritebackInvalidateAll();
   reg(0xBC10004C) = 0b0100; // reset enable, just the me
   asm("sync");
   reg(0xBC10004C) = 0b0; // disable reset to start the me
-  sceKernelDcacheWritebackInvalidateAll();
+  asm("sync");
 }
 
 void kernel_callback(MeFunc const func) {
