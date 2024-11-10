@@ -1,7 +1,7 @@
 #include "melib.h"
 #include <pspsuspend.h>
 
-PSP_MODULE_INFO("ms_klib", 0x1006, 1, 1);
+PSP_MODULE_INFO("mds_klib", 0x1006, 1, 1);
 PSP_NO_CREATE_MAIN_THREAD();
 
 #define ME_HANDLER_BASE 0xbfc00040

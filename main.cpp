@@ -9,14 +9,11 @@ PSP_HEAP_SIZE_KB(-1024);
 PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_VFPU | PSP_THREAD_ATTR_USER);
 
 #define BUFFER_WIDTH 512
-
 #define BASE_SHARED_MEM 0x08400000
 #define MAX_COUNTER 256
 
-int* mem = nullptr;
 bool stop = false;
 u32 color = 0xFF;
-
 
 void drawLine(const u32 y, const u32 size, const u32 color) {
   const u32 base = BASE_SHARED_MEM + y * 4 * BUFFER_WIDTH;
